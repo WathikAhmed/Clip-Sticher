@@ -1,3 +1,7 @@
-/background_clip.mp4
-/main_clip.mp4
-/stitched_output.mp4
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.flv
+*.webm
