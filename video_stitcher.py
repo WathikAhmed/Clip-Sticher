@@ -6,13 +6,21 @@ Video Stitcher - Creates vertical 9:16 videos by combining a main clip (top) wit
 import os
 from moviepy.editor import VideoFileClip, CompositeVideoClip
 
-def load_and_resize_video(video_path, target_size):
-    """Load video and resize to target dimensions"""
+def load_and_crop_video(video_path, target_size):
+    """Load video, crop center 60%, and resize to target dimensions"""
     if not os.path.exists(video_path):
         raise FileNotFoundError(f"Video file not found: {video_path}")
     
     clip = VideoFileClip(video_path)
-    return clip.resize(target_size)
+    w, h = clip.size
+    
+    # Crop center 60% (remove 20% from each side)
+    crop_width = int(w * 0.6)
+    x1 = int(w * 0.2)
+    x2 = x1 + crop_width
+    
+    cropped = clip.crop(x1=x1, x2=x2)
+    return cropped.resize(target_size)
 
 def loop_or_trim_video(video, target_duration):
     """Loop or trim video to match target duration"""
@@ -59,11 +67,11 @@ def main():
         output_path = "stitched_output.mp4"
         
         print("Loading main clip...")
-        main_clip = load_and_resize_video(main_clip_path, (1080, 960))
+        main_clip = load_and_crop_video(main_clip_path, (1080, 960))
         main_duration = main_clip.duration
         
         print("Loading background clip...")
-        background_clip = load_and_resize_video(background_clip_path, (1080, 960))
+        background_clip = load_and_crop_video(background_clip_path, (1080, 960))
         
         print("Processing background clip...")
         # Remove audio and adjust duration
