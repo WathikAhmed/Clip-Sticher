@@ -19,7 +19,7 @@ pip install -r requirements.txt
    python video_stitcher.py
    ```
 
-3. Output will be saved as `stitched_output.mp4`
+3. Output will be saved as `stitched/stitched_output.mp4`
 
 ## Features
 

@@ -64,7 +64,11 @@ def main():
         # Input files
         main_clip_path = "main_clip.mp4"
         background_clip_path = "background_clip.mp4"
-        output_path = "stitched_output.mp4"
+        
+        # Create output directory
+        output_dir = "stitched"
+        os.makedirs(output_dir, exist_ok=True)
+        output_path = os.path.join(output_dir, "stitched_output.mp4")
         
         print("Loading main clip...")
         main_clip = load_and_crop_video(main_clip_path, (1080, 960))
